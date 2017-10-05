@@ -11,9 +11,13 @@ class PostsNew extends Component {
       </div>
     );
   }
+  onSubmit(values) {
+    console.log(values);
+  }
   render() {
+    const { handleSubmit } = this.props;
     return (
-      <form>
+      <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
         <Field label="Title" name="title" component={this.renderField} />
         <Field
           label="Categories"
@@ -25,6 +29,9 @@ class PostsNew extends Component {
           name="content"
           component={this.renderField}
         />
+        <button type="submit" className="btn btn-primary">
+          Submit
+        </button>
       </form>
     );
   }
@@ -38,10 +45,10 @@ function validate(values) {
     errors.title = 'Enter a title that is at least 3 characters';
   }
   if (!values.categories) {
-    errors.title = 'Enter at least 1 category!';
+    errors.categories = 'Enter at least 1 category!';
   }
   if (!values.content) {
-    errors.title = 'Enter some content!';
+    errors.content = 'Enter some content!';
   }
   // If errors the for is fine to submit
   // If errors has any properties, reduxForm assumes form is invalid
